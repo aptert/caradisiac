@@ -1,6 +1,6 @@
-var elasticsearch=require('elasticsearch');
+var es = require('elasticsearch');
 
-var client = new elasticsearch.Client( {  
+var client = new es.Client( {  
     hosts: [
       'http://localhost:9200/'
     ]

@@ -8,35 +8,29 @@ var port = 9292;
 
 var app = express();
 
-async function Brands() {
+async function AllBrands() {
     const brands = await getBrands();
 
     return brands;
 }
 
-async function Models(brand) {
-    const models = await getModels(brand);
+async function AllModels(brand) {
+    const models = await getAllModels(brand);
 
     return models;
 }
 
 function getModel(brand) {
     return new Promise((resolve, reject) => {
-        Models(brand)
+        AllModels(brand)
             .then(models => { return resolve(models) })
             .catch(err => { return reject(err) })
     })
 }
 
-function InitMapping() {
-    var body = { car: { properties: { "volume": { "type": "text", "fielddata": true } } } }
-    return client.indices.putMapping({ index: "cars", type: "car", body: body })
-}
-
-
 app.route("/populate") 
     .get(function (req, res) { 
-        Brands()
+        AllBrands()
             .then(brands => {
                 const requests = brands.map(brand => getModel(brand))
                 Promise.all(requests)
