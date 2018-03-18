@@ -1,0 +1,25 @@
+{
+  "name": "caradisiac",
+  "version": "1.0.0",
+  "description": "api for cars",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aptert/caradisiac.git"
+  },
+  "author": "Tom Apter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aptert/caradisiac/issues"
+  },
+  "homepage": "https://github.com/aptert/caradisiac#readme",
+  "dependencies": {
+    "elasticsearch": "^14.2.1"
+  }
+}
