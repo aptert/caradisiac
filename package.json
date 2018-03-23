@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/aptert/caradisiac#readme",
   "dependencies": {
-    "elasticsearch": "^14.2.1"
+    "elasticsearch": "^14.2.1",
+    "node-car-api": "git+https://github.com/92bondstreet/node-car-api.git",
+    "p-settle": "^2.0.0"
   }
 }

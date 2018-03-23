@@ -3,6 +3,7 @@ var express = require('express');
 var client = require('./connection.js');
 const { getBrands } = require('node-car-api');
 const { getModels } = require('node-car-api');
+const pSettle = require('p-settle');
 var hostname = 'localhost';
 var port = 9292;
 
@@ -15,7 +16,7 @@ async function AllBrands() {
 }
 
 async function AllModels(brand) {
-    const models = await getAllModels(brand);
+    const models = await getModels(brand);
 
     return models;
 }
@@ -23,18 +24,19 @@ async function AllModels(brand) {
 function getModel(brand) {
     return new Promise((resolve, reject) => {
         AllModels(brand)
-            .then(models => { return resolve(models) })
-            .catch(err => { return reject(err) })
+            .then(models => { resolve(models) })
+            .catch(err => { reject(err) })
     })
 }
 
 app.route("/populate") 
     .get(function (req, res) { 
-        AllBrands()
-            .then(brands => {
-                const requests = brands.map(brand => getModel(brand))
+        var brands =["DACIA", "PEUGEOT"]
+        const requests = brands.map(brand => getModel(brand))
+                console.log("mapping ok")
                 Promise.all(requests)
-                    .then(results => {
+                    .then((results) => {
+                        console.log("Promise lancée")
                         var models = [].concat.apply([], results)
                         var bulk_body = [];
                         models.forEach(model => {
@@ -66,9 +68,7 @@ app.route("/populate")
                             }
                         })
                     })
-                    .catch(err => console.log(err))
             })
-    })
 
 
 app.route("/suv")
